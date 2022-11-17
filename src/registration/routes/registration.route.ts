@@ -13,6 +13,7 @@ import Registration from '@database/entity/registration/registration.entity';
 import BadRequestError from '@global/errors/bad-request.error';
 import { getLongLivedToken } from '@global/utils/jwt.utils';
 import Admin from '@database/entity/admin/admin.entity';
+// import { RequestValidationError } from '@global/errors/request-validation.error';
 // import { auth } from '@global/middlewares/auth.middle';
 
 // router instance
@@ -45,7 +46,7 @@ router.post(
       ...req.body,
     });
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: 'Request Successful',
       data: user,
     });
@@ -72,6 +73,31 @@ router.post(
       data: {
         accessToken: token,
       },
+    });
+  }),
+);
+
+router.post(
+  '/duplicate',
+  wrap(async (req: Request, res: Response) => {
+    const registrationService: RegistrationService = Container.get(RegistrationService);
+    const registraion: Registration | null = await registrationService.duplicationCheck(req.body);
+    return res.status(200).json({
+      message: 'Request Successfull',
+      data: registraion,
+    });
+  }),
+);
+
+router.put(
+  '/:id',
+  wrap(async (req: Request<{ id: number }>, res: Response) => {
+    console.log('hello');
+    const registrationService: RegistrationService = Container.get(RegistrationService);
+    const registration: Registration | null = await registrationService.update(req.params.id, req.body);
+    return res.status(201).json({
+      message: 'Successfully Updated',
+      data: registration,
     });
   }),
 );

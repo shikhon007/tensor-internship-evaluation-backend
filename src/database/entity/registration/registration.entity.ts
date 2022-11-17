@@ -21,14 +21,14 @@ export default class Registration {
   email!: string;
 
   @Column({ unique: true })
-  mobile!: number;
+  mobile!: string;
 
   //later added
   @Column()
   name!: string;
 
   @Column()
-  contact!: number;
+  contact!: string;
 
   @Column()
   postalCode!: string;

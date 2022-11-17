@@ -4,8 +4,26 @@ export interface ICreateUser {
   representativeNid: string;
   address: string;
   email: string;
-  mobile: number;
+  mobile: string;
   name: string;
-  contact: number;
+  contact: string;
   postalCode: string;
+}
+
+export interface IUpdateUser {
+  companyName: string;
+  representativeName: string;
+  representativeNid: string;
+  address: string;
+  email: string;
+  mobile: string;
+  name: string;
+  contact: string;
+  postalCode: string;
+}
+
+export interface ICheckDuplicate {
+  companyName?: string;
+  email?: string;
+  mobile?: string;
 }
